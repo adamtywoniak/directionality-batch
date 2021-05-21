@@ -44,17 +44,17 @@ index = 1;
 
 # print(type(fitParams[0][:]))
 
-for param in fitParams:
-    rt.incrementCounter()
-    #rt.addLabel(imp.getStack().getShortSliceLabel(index))
-    rt.addValue('a', param[0])
-    rt.addValue('b', param[1])
-    rt.addValue('c', param[2])
-    rt.addValue('d', param[3])
-    index = index + 1;
+# for param in fitParams:
+    #rt.incrementCounter()
+    ##rt.addLabel(imp.getStack().getShortSliceLabel(index))
+    #rt.addValue('a', param[0])
+    #rt.addValue('b', param[1])
+    #rt.addValue('c', param[2])
+    #rt.addValue('d', param[3])
+    #index = index + 1;
  
-rt.show('Fit param for y = a + (b-a)*exp(-(x-c)*(x-c)/(2*d*d)')
-#can be commented out to prevent table display
+#rt.show('Fit param for y = a + (b-a)*exp(-(x-c)*(x-c)/(2*d*d)')
+#commented out to prevent table display | uncomment for manual analysis
 
 # print('fitParams:')
 # print(fitParams[0][2])
