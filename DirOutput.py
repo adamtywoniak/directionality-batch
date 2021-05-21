@@ -54,6 +54,7 @@ for param in fitParams:
     index = index + 1;
  
 rt.show('Fit param for y = a + (b-a)*exp(-(x-c)*(x-c)/(2*d*d)')
+#can be commented out to prevent table display
 
 # print('fitParams:')
 # print(fitParams[0][2])
@@ -63,21 +64,22 @@ rt.show('Fit param for y = a + (b-a)*exp(-(x-c)*(x-c)/(2*d*d)')
 # getGoodness = dnlty.getGoodnessOfFit()
 # print(getGoodness[0])
 
-print('Analysis')
 anl = dnlty.getFitAnalysis()
+# Plugin's source code for reference:
 #analysis[ 0 ] = center;
 #analysis[ 1 ] = std;
 #analysis[ 2 ] = amount;
 #analysis[ 3 ] = gof[ i ];
-#print(type(anl))
-# See description above
-print(anl[0][0]) #in rad
-print(anl[0][1]) #in rad
-print(anl[0][2])
-print(anl[0][3])
-#result=anl[0] #not used
 
-with open('output.txt', 'a') as f:
-
-output_path = getDirectory("image")+"output.txt";
-header = "Filename,Direction,Dispersion,GoF";
+center=math.degrees(anl[0][0])#anl stores value in rad
+# requires conversion
+std=math.degrees(anl[0][1])#rad to deg
+# anl[0][2]
+ # no use for amount
+gof=(anl[0][3])
+ImgFolder = imp.getOriginalFileInfo().directory
+FileName = imp.getTitle()
+with open(ImgFolder+"output.txt", "a") as text_file:
+#header = "Filename,Direction,Dispersion,GoF";
+	text_file.write('\n'+FileName+','+str(center)+','+str(std)+','+str(gof))
+	text_file.close()
