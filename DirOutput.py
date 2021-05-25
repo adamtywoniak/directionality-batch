@@ -1,4 +1,10 @@
-from fiji.analyze.directionality import Directionality_
+from ij import IJ
+from ij import WindowManager
+from ij.measure import ResultsTable
+
+import BatchDirectionality_
+#from fiji.analyze.directionality import Directionality_ #now replaced
+
 from ij import WindowManager
 from ij.measure import ResultsTable
 import math
@@ -11,12 +17,14 @@ import math
 # ImageConverter(imp).convertToGray32() 
 
 # Instantiate plugin
-dnlty = Directionality_()
+#dnlty = Directionality_() #now replaced
+dnlty = BatchDirectionality_()
  
 # Set fields and settings
 imp = WindowManager.getCurrentImage()
 dnlty.setImagePlus(imp)
-dnlty.setMethod(Directionality_.AnalysisMethod.FOURIER_COMPONENTS)
+#dnlty.setMethod(Directionality_.AnalysisMethod.FOURIER_COMPONENTS)
+dnlty.setMethod(BatchDirectionality_.AnalysisMethod.FOURIER_COMPONENTS)
 dnlty.setBinNumber(181)
 dnlty.setBinStart(0)
 dnlty.setBuildOrientationMapFlag(False) # No orientation map
@@ -25,17 +33,9 @@ dnlty.setBuildOrientationMapFlag(False) # No orientation map
 dnlty.computeHistograms()
 dnlty.fitHistograms()
  
-# Display plot frame
-plot_frame = dnlty.plotResults()
-plot_frame.setVisible(False)
- 
 # Display fit analysis
 data_frame = dnlty.displayFitAnalysis()
 data_frame.setVisible(False)
- 
-# Display results table
-# table = dnlty.displayResultsTable()
-# table.show("Directionality histograms")
  
 # Get the fit params and put them in a results table
 fitParams = dnlty.getFitParameters()
@@ -79,7 +79,12 @@ std=math.degrees(anl[0][1])#rad to deg
 gof=(anl[0][3])
 ImgFolder = imp.getOriginalFileInfo().directory
 FileName = imp.getTitle()
-with open(ImgFolder+"output.txt", "a") as text_file:
-#header = "Filename,Direction,Dispersion,GoF";
-	text_file.write('\n'+FileName+','+str(center)+','+str(std)+','+str(gof))
-	text_file.close()
+
+textfile = open(ImgFolder+"output.txt", "a")
+textfile.write('\n'+FileName+','+str(center)+','+str(std)+','+str(gof))
+textfile.close()
+
+#with open(ImgFolder+"output.txt", "a") as text_file:
+##header = "Filename,Direction,Dispersion,GoF";
+#	text_file.write('\n'+FileName+','+str(center)+','+str(std)+','+str(gof))
+#	text_file.close()
